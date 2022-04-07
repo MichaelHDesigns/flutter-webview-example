@@ -88,11 +88,101 @@ class _HomeState extends State<Home> {
               color: Colors.white54,
               onPressed: () => _goToWebView(),
             ),
-          )
+          ),
+          Center( 
+            child: RaisedButton.icon(
+              lable: Text('QR Scan'),
+              color: Color.white54,
+              onPressed: () => _goToQRScan(),
+           ),
+         )
         ],
       ),
     );
   }
+  
+void _goToQRScan() => runApp(new MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'HTH QR Scanner',
+        theme: new ThemeData(primarySwatch: Colors.red),
+    home: new ScanQRCode());
+  }
+}
+
+class ScanQRCode extends StatefulWidget {
+  @override
+  _ScanQRCodState createState() => _ScanQRCodState();
+}
+
+class _ScanQRCodState extends State<ScanQRCode> {
+  QRCaptureController _captureController = QRCaptureController();
+
+  bool _isTorchOn = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _captureController.onCapture((data) {
+      print('onCapture----$data');
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            QRCaptureView(controller: _captureController),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: _buildToolBar(),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildToolBar() {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        FlatButton(
+          onPressed: () {
+            _captureController.pause();
+          },
+          child: Text('pause'),
+        ),
+        FlatButton(
+          onPressed: () {
+            if (_isTorchOn) {
+              _captureController.torchMode = CaptureTorchMode.off;
+            } else {
+              _captureController.torchMode = CaptureTorchMode.on;
+            }
+            _isTorchOn = !_isTorchOn;
+          },
+          child: Text('torch'),
+        ),
+        FlatButton(
+          onPressed: () {
+            _captureController.resume();
+          },
+          child: Text('resume'),
+        ),
+      ],
+    );
+  }
+}
 
   void _goToWebView(){
     String text = myController.text;
