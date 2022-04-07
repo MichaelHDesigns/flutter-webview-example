@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Webview Example',
+      title: 'HTH Coin Wallet',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -24,7 +24,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final myController = TextEditingController();
-  String url = 'https://github.com/pravodev';
+  String url = 'https://wallet.hth.world';
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text('Webview Example'),
+        title: Text('HTH Coin Wallet'),
       ),
       drawer: _createDrawer(),
       body: ListView(
@@ -195,7 +195,7 @@ class _ScanQRCodState extends State<ScanQRCode> {
     });
     
     Navigator.of(context).push(MaterialPageRoute( 
-      builder: (context) => buildWebView(context, "Webview Example", false)
+      builder: (context) => buildWebView(context, "HTH Coin Wallet", false)
     ));
   }
 
@@ -215,23 +215,23 @@ class _ScanQRCodState extends State<ScanQRCode> {
       child: ListView(
         children: <Widget>[
           DrawerHeader(
-            child: Image.network("https://avatars2.githubusercontent.com/u/37338847?s=460&v=4", fit: BoxFit.cover,),
+            child: Image.network("	https://hth.world/wp-content/themes/HTHworldwide/images/hthlogo_md.png", fit: BoxFit.cover,),
             padding: EdgeInsets.all(0.0),
             decoration: BoxDecoration(
               color: Colors.blue,
             ),
           ),
           ListTile(
-            title: Text("My GitHub"),
-            subtitle: Text("Open My Github"),
+            title: Text("HTH Coin Wallet"),
+            subtitle: Text("HTH Coin Wallet"),
             dense: true,
             leading: Icon(Icons.open_in_new),
             onTap: () {
               setState(() {
-                url = 'https://github.com/pravodev';
+                url = 'https://wallet.hth.world';
               });
               Navigator.of(context).push(MaterialPageRoute( 
-                builder: (context) => buildWebView(context, "My Github", true)
+                builder: (context) => buildWebView(context, "HTH Coin Wallet", true)
               ));
             },
           )
